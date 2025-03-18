@@ -1,0 +1,11 @@
+server:
+  server_addr: zone.xylink.com
+  http_port: 80
+  https_port: 443
+user:
+  account: 18804010001
+  password: Test12345_
+conference:
+  meetingroom_number:9047264121
+  meetingroom_password:123456
+  control_password:123456
