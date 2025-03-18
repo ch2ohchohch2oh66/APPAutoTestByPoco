@@ -5,7 +5,8 @@
 # Description: Keep Hungry Keep Foolish
 
 import logging
-from moduls.android.app.app_common import *
+from moduls.android.app_common.app_common import *
+from moduls.android.homepage.meeting import Meeting
 
 logger = logging.getLogger(__name__)
 
@@ -13,3 +14,9 @@ class Test_application_init(object):
 
     def test_01_open_app(self):
         open_android_app(package_name="com.tencent.wemeet.app")
+        sleep(3)
+        Meeting().join_meeting()
+        close_android_app(package_name="com.tencent.wemeet.app")
+
+if __name__ == '__main__':
+    Test_application_init().test_01_open_app()

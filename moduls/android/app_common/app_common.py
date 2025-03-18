@@ -9,7 +9,7 @@ from time import sleep
 
 from airtest.cli.parser import cli_setup
 # from airtest.core.android.android import *
-from airtest.core.api import auto_setup,wake,start_app,stop_app
+from airtest.core.api import auto_setup, wake, start_app, stop_app, connect_device
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,18 +23,38 @@ logging.getLogger('airtest').setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def open_android_app(package_name="com.ainemo.dragoon"):
+def open_android_app(package_name="com.tencent.wemeet.app"):
     """
-    Open the specified Android app.
+    Open the specified Android app_common.
     """
     logger.info("连接手机,打开应用")
-    auto_setup(__file__, devices=["android:///?ime_method=ADBIME"])
+    # auto_setup(__file__, devices=["android:///?ime_method=ADBIME"])
+    device = connect_device("android:///?ime_method=ADBIME")
     wake()
     stop_app(package_name)
     logger.info("关闭应用成功")
     sleep(1)
     start_app(package_name)
     logger.info("启动应用成功")
+    return device
+
+def close_android_app(package_name="com.tencent.wemeet.app"):
+    """
+    Close the specified Android app_common.
+    """
+    logger.info("关闭应用")
+    wake()
+    stop_app(package_name)
+    logger.info("关闭应用成功")
+
+def disconect_device(device):
+    """
+    Disconnect the device.
+    """
+    logger.info("断开连接")
+    disconnect_device(device)
+    logger.info("断开连接成功")
+
 
 if __name__ == "__main__":
     # package_name="com.ainemo.dragoon"
