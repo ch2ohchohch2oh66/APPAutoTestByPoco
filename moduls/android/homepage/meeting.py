@@ -3,30 +3,13 @@
 # Author: Andy Freeman
 # Date: 2025/3/19
 # Description: Keep Hungry Keep Foolish
+
 from time import sleep
-
-from airtest.core.api import auto_setup, keyevent
-from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-
-auto_setup(__file__, devices=["android:///?ime_method=ADBIME"])
-poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False, force_restart=True)
-# print(G.DEVICE)
+from airtest.core.api import keyevent
+from utils.wrap_poco import *
 
 class Meeting:
-    # def __init__(self, meeting_name, meeting_time, meeting_location, meeting_description):
-    #     self.meeting_name = meeting_name
-    #     self.meeting_time = meeting_time
-    #     self.meeting_location = meeting_location
-    #     self.meeting_description = meeting_description
-    #
-    # def get_meeting_name(self):
-    #     return self.meeting_name
-    #
-    # def get_meeting_time(self):
-    #     return self.meeting_time
-    #
-    # def get_meeting_location(self):
-    #     pass
+
 
     def join_meeting(self):
         assert poco(text='加入会议').exists(), '未找到会议页面'
@@ -42,3 +25,10 @@ class Meeting:
         sleep(1)
         poco(name='com.tencent.wemeet.app:id/xb').click()
         sleep(5)
+        poco(name='com.tencent.wemeet.app:id/dq').click()
+        sleep(1)
+        # poco(name='com.tencent.wemeet.app:id/dq').click()
+        sleep(1)
+        poco(text='结束会议').click()
+        sleep(1)
+
