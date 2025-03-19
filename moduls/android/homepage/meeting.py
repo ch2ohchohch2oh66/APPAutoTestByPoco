@@ -31,4 +31,6 @@ class Meeting:
         sleep(1)
         poco(text='结束会议').click()
         sleep(1)
+        poco(textMatches='^我知道了.*$').click()
+        sleep(1)
 
