@@ -5,7 +5,7 @@
 # Description: Keep Hungry Keep Foolish
 
 from time import sleep
-from airtest.core.api import keyevent
+from airtest.core.api import *
 from moduls.android.common.poco_common import *
 from moduls.android.inmeeting.defaultpage import defaultpage_inmeeting
 # import logging
@@ -57,3 +57,16 @@ class Meeting:
         poco(textMatches='^我知道了.*$').click()
         sleep(1)
         logger.info('结束会议成功')
+
+    def book_meeting(self):
+        logger.info('预定会议')
+        touch(Template('D:/AutomationCode/myAutomationTestProject/APPAutoTestByPoco/resources/android/homepage/meeting/book_meeting.png', ST.THRESHOLD, ST.FIND_TIMEOUT))
+        sleep(1)
+        # poco(text='请输入会议号').click()
+        # sleep(1)
+        # poco(text='请输入会议号').set_text('4279512998')
+        # sleep(1)
+        # 返回一次以退出输入法应用
+        keyevent('BACK')
+        # poco(name='com.tencent.wemeet.app:id/ali').click()
+        sleep(1)
