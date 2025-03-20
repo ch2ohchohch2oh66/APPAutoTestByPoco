@@ -15,6 +15,8 @@ class Test_application_init(object):
     def test_01_open_app(self):
         open_android_app(package_name="com.tencent.wemeet.app")
         sleep(3)
+        Meeting().check_homepage()
+        Meeting().check_meetingpage()
         Meeting().join_meeting()
         close_android_app(package_name="com.tencent.wemeet.app")
 

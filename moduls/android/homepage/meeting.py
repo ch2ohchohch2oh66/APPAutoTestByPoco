@@ -7,12 +7,28 @@
 from time import sleep
 from airtest.core.api import keyevent
 from utils.wrap_poco import *
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 
 class Meeting:
 
+    def check_homepage(self):
+        logger.info('检查首页')
+        assert poco(nameMatches='.*id/act$', textMatches='.*会议.*').exists(), '未找到“会议”'
+        assert poco(nameMatches='.*id/act$', textMatches='.*通讯录.*').exists(), '未找到“通讯录”'
+        assert poco(nameMatches='.*id/act$', textMatches='.*我的.*').exists(), '未找到“我的”'
+
+    def check_meetingpage(self):
+        logger.info('检查会议页面')
+        assert poco(text='加入会议').exists(), '未找到“加入会议”'
+        assert poco(text='快速会议').exists(), '未找到“快速会议”'
+        assert poco(text='预定会议').exists(), '未找到“预定会议”'
+        assert poco(text='共享屏幕').exists(), '未找到“共享屏幕”'
 
     def join_meeting(self):
-        assert poco(text='加入会议').exists(), '未找到会议页面'
         poco(text='加入会议').click()
         sleep(1)
         poco(text='请输入会议号').click()
@@ -33,4 +49,3 @@ class Meeting:
         sleep(1)
         poco(textMatches='^我知道了.*$').click()
         sleep(1)
-
