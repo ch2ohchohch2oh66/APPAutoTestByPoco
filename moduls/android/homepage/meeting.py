@@ -3,19 +3,23 @@
 # Author: Andy Freeman
 # Date: 2025/3/19
 # Description: Keep Hungry Keep Foolish
-
+import os.path
 from time import sleep
 from airtest.core.api import *
 from moduls.android.common.poco_common import *
 from moduls.android.inmeeting.defaultpage import defaultpage_inmeeting
-# import logging
-#
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.INFO)
 
+# 获取项目根目录
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(PROJECT_ROOT)
+# 图片路径配置
+TEMPLATE_PATHS = {
+    'meeting_image_path': os.path.join(PROJECT_ROOT, 'resources', 'android', 'homepage', 'meeting'),
+    'book_meeting_image_path': os.path.join(PROJECT_ROOT, 'resources', 'android', 'book_meeting')
+}
+FIND_TIMEOUT = 3  # 超时时间
 
 class Meeting:
-
     def check_homepage(self):
         logger.info('检查首页')
         assert poco(nameMatches='.*id/act$', textMatches='.*会议.*').exists(), '未找到“会议”'
@@ -60,13 +64,20 @@ class Meeting:
 
     def book_meeting(self):
         logger.info('预定会议')
-        touch(Template('D:/AutomationCode/myAutomationTestProject/APPAutoTestByPoco/resources/android/homepage/meeting/book_meeting.png', ST.THRESHOLD, ST.FIND_TIMEOUT))
+        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['meeting_image_path'], 'book_meeting.png'), ST.THRESHOLD, ST.FIND_TIMEOUT))
         sleep(1)
-        # poco(text='请输入会议号').click()
-        # sleep(1)
-        # poco(text='请输入会议号').set_text('4279512998')
-        # sleep(1)
-        # 返回一次以退出输入法应用
-        keyevent('BACK')
-        # poco(name='com.tencent.wemeet.app:id/ali').click()
+        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['book_meeting_image_path'], 'next_step.png'), ST.THRESHOLD, ST.FIND_TIMEOUT))
+        sleep(2)
+        poco(text='开始时间').click()
+        sleep(1)
+        poco.swipe((0.6, 0.8), (0.6, 0.75))
+        sleep(1)
+        poco(desc='确定').click()
+        sleep(1)
+        poco(text='完成').click()
+        sleep(1)
+        poco(text='取消').click()
+        sleep(1)
+        poco(desc='返回').click()
+        logger.info('预定会议成功')
         sleep(1)
