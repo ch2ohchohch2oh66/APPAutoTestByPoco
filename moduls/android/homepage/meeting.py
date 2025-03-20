@@ -6,7 +6,8 @@
 
 from time import sleep
 from airtest.core.api import keyevent
-from utils.wrap_poco import *
+from moduls.android.common.poco_common import *
+from moduls.android.inmeeting.defaultpage import defaultpage_inmeeting
 # import logging
 #
 # logger = logging.getLogger(__name__)
@@ -43,8 +44,13 @@ class Meeting:
         poco(name='com.tencent.wemeet.app:id/xb').click()
         logger.info('加入会议成功')
         sleep(5)
+        defaultpage_inmeeting().click_more_button()
+        sleep(3)
+        keyevent('BACK')
+        defaultpage_inmeeting().call_top_and_bottom_button()
+        sleep(3)
         logger.info('结束会议')
-        poco(name='com.tencent.wemeet.app:id/dq').click()
+        poco(text='结束').click(sleep_interval=1)
         sleep(1)
         poco(text='结束会议').click()
         sleep(1)

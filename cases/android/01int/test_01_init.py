@@ -5,7 +5,7 @@
 # Description: Keep Hungry Keep Foolish
 
 import logging
-from moduls.android.app_common.app_common import *
+from moduls.android.common.app_common import *
 from moduls.android.homepage.meeting import Meeting
 
 # logger = logging.getLogger(__name__)
