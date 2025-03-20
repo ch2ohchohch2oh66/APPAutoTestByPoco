@@ -5,6 +5,12 @@
 from airtest.core.api import auto_setup, wake, connect_device
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
 auto_setup(__file__, devices=["android:///?ime_method=ADBIME"])
 # device = connect_device("android:///?ime_method=ADBIME")
 wake()

@@ -7,10 +7,10 @@
 from time import sleep
 from airtest.core.api import keyevent
 from utils.wrap_poco import *
-import logging
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+# import logging
+#
+# logger = logging.getLogger(__name__)
+# logger.setLevel(logging.INFO)
 
 
 class Meeting:
@@ -29,6 +29,7 @@ class Meeting:
         assert poco(text='共享屏幕').exists(), '未找到“共享屏幕”'
 
     def join_meeting(self):
+        logger.info('加入会议')
         poco(text='加入会议').click()
         sleep(1)
         poco(text='请输入会议号').click()
@@ -40,12 +41,13 @@ class Meeting:
         # poco(name='com.tencent.wemeet.app:id/ali').click()
         sleep(1)
         poco(name='com.tencent.wemeet.app:id/xb').click()
+        logger.info('加入会议成功')
         sleep(5)
+        logger.info('结束会议')
         poco(name='com.tencent.wemeet.app:id/dq').click()
-        sleep(1)
-        # poco(name='com.tencent.wemeet.app:id/dq').click()
         sleep(1)
         poco(text='结束会议').click()
         sleep(1)
         poco(textMatches='^我知道了.*$').click()
         sleep(1)
+        logger.info('结束会议成功')
