@@ -5,7 +5,7 @@
 # Description: Keep Hungry Keep Foolish
 
 from moduls.android.common.poco_common import *
-class defaultpage_inmeeting(object):
+class InmeetingDefaultpage(object):
 
     def call_top_and_bottom_button(self):
         if not poco(text='更多').exists():

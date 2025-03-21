@@ -7,6 +7,8 @@
 import logging
 from moduls.android.common.app_common import *
 from moduls.android.homepage.meeting import Meeting
+from moduls.android.inmeeting.morepage import Record
+
 
 # logger = logging.getLogger(__name__)
 
@@ -15,9 +17,11 @@ class Test_application_init(object):
     def test_01_open_app(self):
         open_android_app(package_name="com.tencent.wemeet.app")
         sleep(3)
-        # Meeting().check_homepage()
-        # Meeting().check_meetingpage()
-        # Meeting().join_meeting()
+        Meeting().check_homepage()
+        Meeting().check_meetingpage()
+        Meeting().join_meeting()
+        Record().record()
+        Meeting().end_meeting()
         Meeting().book_meeting()
         close_android_app(package_name="com.tencent.wemeet.app")
 

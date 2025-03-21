@@ -7,7 +7,7 @@ import os.path
 from time import sleep
 from airtest.core.api import *
 from moduls.android.common.poco_common import *
-from moduls.android.inmeeting.defaultpage import defaultpage_inmeeting
+from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 # 获取项目根目录
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -47,11 +47,13 @@ class Meeting:
         sleep(1)
         poco(name='com.tencent.wemeet.app:id/xb').click()
         logger.info('加入会议成功')
-        sleep(5)
-        defaultpage_inmeeting().click_more_button()
-        sleep(3)
-        keyevent('BACK')
-        defaultpage_inmeeting().call_top_and_bottom_button()
+        sleep(1)
+        # poco(text='开启视频').click()
+        # sleep(1)
+
+    def end_meeting(self):
+
+        InmeetingDefaultpage().call_top_and_bottom_button()
         sleep(3)
         logger.info('结束会议')
         poco(text='结束').click(sleep_interval=1)
@@ -76,6 +78,7 @@ class Meeting:
         sleep(1)
         poco(text='完成').click()
         sleep(1)
+
         poco(text='取消').click()
         sleep(1)
         poco(desc='返回').click()
