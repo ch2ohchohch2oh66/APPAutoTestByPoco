@@ -17,17 +17,17 @@ import time
 class Test_application_init(object):
 
     def test_01_open_app(self):
-        open_android_app(package_name="com.tencent.wemeet.app")
-        time.sleep(3)  # 等待应用启动
 
         # 创建退出事件和线程
         exit_event = threading.Event()
-        thread_pop_up_window = threading.Thread(target=self.handle_popup, args=(exit_event,))
-        thread_pop_up_window.daemon = True
-        thread_pop_up_window.start()
+        thread_handle_popup = threading.Thread(target=self.handle_popup, args=(exit_event,))
+        thread_handle_popup.daemon = True
+        thread_handle_popup.start()
 
         try:
             # 执行测试流程
+            open_android_app(package_name="com.tencent.wemeet.app")
+            time.sleep(3)  # 等待应用启动
             Meeting().check_homepage()
             Meeting().check_meetingpage()
             Meeting().join_meeting()
@@ -38,7 +38,7 @@ class Test_application_init(object):
             # 关闭应用并停止弹窗处理线程
             close_android_app(package_name="com.tencent.wemeet.app")
             exit_event.set()  # 停止弹窗处理线程
-            thread_pop_up_window.join(timeout=2)  # 等待线程安全退出
+            thread_handle_popup.join(timeout=2)  # 等待线程安全退出
 
     def handle_popup(self, exit_event):
         single_check_timeout = 5  # 单次检测超时时间（秒）

@@ -9,8 +9,6 @@ from moduls.android.inmeeting.morepage import Record
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 def test_01_record():
-    InmeetingDefaultpage().call_top_and_bottom_button()
-    sleep(1)
     InmeetingDefaultpage().click_more_button()
     sleep(1)
     Record().start_record()
