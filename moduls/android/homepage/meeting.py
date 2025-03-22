@@ -48,14 +48,13 @@ class Meeting:
         poco(name='com.tencent.wemeet.app:id/xb').click()
         logger.info('加入会议成功')
         sleep(1)
-        # poco(text='开启视频').click()
-        # sleep(1)
+        poco(text='开启视频').click()
+        sleep(1)
 
     def end_meeting(self):
 
-        InmeetingDefaultpage().call_top_and_bottom_button()
-        sleep(3)
         logger.info('结束会议')
+        InmeetingDefaultpage().call_top_and_bottom_button()
         poco(text='结束').click(sleep_interval=1)
         sleep(1)
         poco(text='结束会议').click()

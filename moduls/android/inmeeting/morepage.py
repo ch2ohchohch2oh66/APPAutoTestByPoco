@@ -43,7 +43,7 @@ class Record(object):
 
     def record(self):
         InmeetingDefaultpage().call_top_and_bottom_button()
-        sleep(1)
+        sleep(0.5)
         InmeetingDefaultpage().click_more_button()
         sleep(1)
         self.start_record()
