@@ -22,7 +22,7 @@ class Test_application_init(object):
 
         # 创建退出事件和线程
         exit_event = threading.Event()
-        thread_pop_up_window = threading.Thread(target=self.pop_up_window, args=(exit_event,))
+        thread_pop_up_window = threading.Thread(target=self.handle_popup, args=(exit_event,))
         thread_pop_up_window.daemon = True
         thread_pop_up_window.start()
 
@@ -40,18 +40,27 @@ class Test_application_init(object):
             exit_event.set()  # 停止弹窗处理线程
             thread_pop_up_window.join(timeout=2)  # 等待线程安全退出
 
-    def pop_up_window(self, exit_event):
+    def handle_popup(self, exit_event):
         single_check_timeout = 5  # 单次检测超时时间（秒）
         while not exit_event.is_set():
             start_time = time.time()  # 记录开始时间
             while (time.time() - start_time) < single_check_timeout and not exit_event.is_set():
                 if poco(text='允许本次使用').exists():
+                    time.sleep(3)
                     try:
                         poco(text='允许本次使用').click()
                         time.sleep(1)  # 点击后等待一段时间
                     except Exception as e:
                         print(f"Failed to handle popup: {e}")
                     break  # 处理完弹窗后退出当前循环
+                if poco(text='网络状况不佳').exists():
+                    time.sleep(3)
+                    try:
+                        poco(text='关闭视频').click()
+                        time.sleep(1)  # 点击后等待一段时间
+                    except Exception as e:
+                        print(f"Failed to handle popup: {e}")
+                    break
                 time.sleep(0.5)  # 减少轮询频率
 
 

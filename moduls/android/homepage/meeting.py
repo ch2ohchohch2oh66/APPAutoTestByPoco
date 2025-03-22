@@ -77,6 +77,9 @@ class Meeting:
         sleep(1)
         poco(text='完成').click()
         sleep(1)
+        if poco(text='会议冲突提示').exists():
+            poco(text='仍然预定').click()
+            sleep(1)
 
         poco(text='取消').click()
         sleep(1)
