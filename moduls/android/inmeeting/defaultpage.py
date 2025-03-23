@@ -14,5 +14,5 @@ class InmeetingDefaultpage(object):
     def click_more_button(self):
         if not poco(text='更多').exists():
             poco.click([0.5, 0.5])
-        poco(text='更多').wait_for_appearance(3)
+        poco(text='更多').wait_for_appearance(5)
         poco(text='更多').click(sleep_interval=1)

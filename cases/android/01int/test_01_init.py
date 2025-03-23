@@ -16,7 +16,7 @@ import time
 
 class Test_application_init(object):
 
-    def test_01_open_app(self):
+    def test_01_demo(self):
 
         # 创建退出事件和线程
         exit_event = threading.Event()
@@ -65,4 +65,4 @@ class Test_application_init(object):
 
 
 if __name__ == '__main__':
-    Test_application_init().test_01_open_app()
+    Test_application_init().test_01_demo()

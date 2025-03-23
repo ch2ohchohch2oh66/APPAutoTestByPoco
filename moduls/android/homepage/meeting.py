@@ -37,14 +37,17 @@ class Meeting:
         logger.info('加入会议')
         poco(text='加入会议').click(sleep_interval=2)
         poco(text='请输入会议号').click(sleep_interval=1)
-        poco(text='请输入会议号').set_text('4279512998')
+        poco(text='请输入会议号').set_text('8104536077')
         sleep(1)
         # 返回一次以退出输入法应用
-        keyevent('BACK')
-        sleep(1)
+        if poco(name='com.sohu.inputmethod.sogou:id/aut ').exists():
+            logger.info('退出输入法应用')
+            keyevent('BACK')
+            sleep(1)
         poco(name='com.tencent.wemeet.app:id/xb').click(sleep_interval=1)
-        logger.info('加入会议成功')
         poco(text='结束').wait_for_appearance(3)
+        assert poco(text='结束').exists(), '未找到“结束”,加入会议失败'
+        logger.info('加入会议成功')
         poco(text='开启视频').click(sleep_interval=1)
 
     def end_meeting(self):
@@ -58,9 +61,10 @@ class Meeting:
 
     def book_meeting(self):
         logger.info('预定会议')
-        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['meeting_image_path'], 'book_meeting.png'), ST.THRESHOLD, ST.FIND_TIMEOUT))
-        sleep(3)
-        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['book_meeting_image_path'], 'next_step.png'), ST.THRESHOLD, ST.FIND_TIMEOUT))
+        sleep(5)
+        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['meeting_image_path'], 'book_meeting.jpg'), ST.THRESHOLD, ST.FIND_TIMEOUT))
+        sleep(5)
+        touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['book_meeting_image_path'], 'next_step.jpg'), ST.THRESHOLD, ST.FIND_TIMEOUT))
         sleep(3)
         poco(text='开始时间').click(sleep_interval=1)
         poco.swipe((0.6, 0.8), (0.6, 0.75), duration=0.5)
@@ -71,5 +75,5 @@ class Meeting:
             poco(text='仍然预定').click(sleep_interval=1)
 
         poco(text='取消').click(sleep_interval=1)
-        poco(desc='返回').click(sleep_interval=1)
+        poco(desc='返回').click(sleep_interval=5)
         logger.info('预定会议成功')
