@@ -61,6 +61,8 @@ class Meeting:
 
     def book_meeting(self):
         logger.info('预定会议')
+        before_book_number = poco(typeMatches='.*RecyclerView').children().__len__()
+        logger.info('预定前会议数量：{}'.format(before_book_number))
         sleep(5)
         touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['meeting_image_path'], 'book_meeting.jpg'), ST.THRESHOLD, ST.FIND_TIMEOUT))
         sleep(5)
@@ -75,5 +77,9 @@ class Meeting:
             poco(text='仍然预定').click(sleep_interval=1)
 
         poco(text='取消').click(sleep_interval=1)
-        poco(desc='返回').click(sleep_interval=5)
+        poco(desc='返回').click(sleep_interval=1)
+        after_book_number = poco(typeMatches='.*RecyclerView').offspring(nameMatches='.*ViewGroup$').__len__()
+        logger.info('预定后会议数量：{}'.format(after_book_number))
+        assert after_book_number > before_book_number, '预定会议失败'
         logger.info('预定会议成功')
+        sleep(3)
