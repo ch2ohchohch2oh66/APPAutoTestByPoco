@@ -6,9 +6,9 @@
 
 class HomePageElements:
     # Bottom navigation
-    MEETING_TAB = {'nameMatches': '.*id/act$', 'textMatches': '.*会议.*'}
-    CONTACTS_TAB = {'nameMatches': '.*id/act$', 'textMatches': '.*通讯录.*'}
-    PROFILE_TAB = {'nameMatches': '.*id/act$', 'textMatches': '.*我的.*'}
+    MEETING_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*会议.*'}
+    CONTACTS_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*通讯录.*'}
+    PROFILE_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*我的.*'}
     
     # Meeting page elements
     JOIN_MEETING = {'text': '加入会议'}
@@ -18,7 +18,7 @@ class HomePageElements:
     
     # Meeting number input
     MEETING_NUMBER_INPUT = {'text': '请输入会议号'}
-    JOIN_BUTTON = {'name': 'com.tencent.wemeet.app:id/xb'}
+    JOIN_BUTTON = {'text': '加入会议'}
     
     # Meeting controls
     END_MEETING = {'text': '结束'}
@@ -41,7 +41,19 @@ class InMeetingElements:
     RECORDING_PAUSED = {'text': '录制暂停'}
     STOP_RECORDING_CONFIRM = {'text': '结束录制'}
 
+class PopupElements:
+    # Permission popups
+    ALLOW_ONCE = {'text': '允许本次使用'}
+    POOR_NETWORK = {'text': '网络状况不佳'}
+    CLOSE_VIDEO = {'text': '关闭视频'}
+    NOTIFICATION = {'text': '开启消息通知'}
+    THINK_AGAIN = {'text': '再想想'}
+    NEXT_INSTALL = {'text': '下次安装'}
+
 class Timeouts:
     DEFAULT_WAIT = 5
     SHORT_WAIT = 3
-    LONG_WAIT = 10 
+    LONG_WAIT = 10
+    POPUP_CHECK = 5
+    POPUP_CLICK = 1
+    POPUP_POLL = 0.5 

@@ -5,19 +5,17 @@
 # Description: Keep Hungry Keep Foolish
 
 import threading
+import time
 
 from moduls.android.common.app_common import *
 from moduls.android.common.poco_common import poco
+from moduls.android.common.ui_elements import PopupElements, Timeouts
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.morepage import Record
-
-import threading
-import time
 
 class Test_application_init(object):
 
     def test_01_demo(self):
-
         # 创建退出事件和线程
         exit_event = threading.Event()
         thread_handle_popup = threading.Thread(target=self.handle_popup, args=(exit_event,))
@@ -41,27 +39,38 @@ class Test_application_init(object):
             thread_handle_popup.join(timeout=2)  # 等待线程安全退出
 
     def handle_popup(self, exit_event):
-        single_check_timeout = 5  # 单次检测超时时间（秒）
         while not exit_event.is_set():
             start_time = time.time()  # 记录开始时间
-            while (time.time() - start_time) < single_check_timeout and not exit_event.is_set():
-                if poco(text='允许本次使用').exists():
-                    time.sleep(3)
+            while (time.time() - start_time) < Timeouts.POPUP_CHECK and not exit_event.is_set():
+                if poco(**PopupElements.ALLOW_ONCE).exists():
                     try:
-                        poco(text='允许本次使用').click()
-                        time.sleep(1)  # 点击后等待一段时间
+                        poco(**PopupElements.ALLOW_ONCE).click()
+                        time.sleep(Timeouts.POPUP_CLICK)  # 点击后等待一段时间
                     except Exception as e:
                         print(f"Failed to handle popup: {e}")
                     break  # 处理完弹窗后退出当前循环
-                if poco(text='网络状况不佳').exists():
-                    time.sleep(3)
+                if poco(**PopupElements.POOR_NETWORK).exists():
                     try:
-                        poco(text='关闭视频').click()
-                        time.sleep(1)  # 点击后等待一段时间
+                        poco(**PopupElements.CLOSE_VIDEO).click()
+                        time.sleep(Timeouts.POPUP_CLICK)  # 点击后等待一段时间
                     except Exception as e:
                         print(f"Failed to handle popup: {e}")
                     break
-                time.sleep(0.5)  # 减少轮询频率
+                if poco(**PopupElements.NOTIFICATION).exists():
+                    try:
+                        poco(**PopupElements.THINK_AGAIN).click()
+                        time.sleep(Timeouts.POPUP_CLICK)  # 点击后等待一段时间
+                    except Exception as e:
+                        print(f"Failed to handle popup: {e}")
+                    break
+                if poco(**PopupElements.NEXT_INSTALL).exists():
+                    try:
+                        poco(**PopupElements.NEXT_INSTALL).click()
+                        time.sleep(Timeouts.POPUP_CLICK)  # 点击后等待一段时间
+                    except Exception as e:
+                        print(f"Failed to handle popup: {e}")
+                    break
+                time.sleep(Timeouts.POPUP_POLL)  # 减少轮询频率
 
 
 if __name__ == '__main__':
