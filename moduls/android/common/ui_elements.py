@@ -4,11 +4,19 @@
 # Date: 2025/3/20
 # Description: UI element locators configuration
 
+class WaitTime:
+    """等待时间常量"""
+    ULTRA_SHORT = 0.5  # 超短等待，用于极快速操作
+    SHORT = 1         # 短等待，用于快速操作
+    MEDIUM = 3        # 中等等待，用于一般操作
+    LONG = 5          # 长等待，用于较慢操作
+    EXTREME = 10      # 极长等待，用于极慢操作
+
 class HomePageElements:
     # Bottom navigation
-    MEETING_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*会议.*'}
-    CONTACTS_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*通讯录.*'}
-    PROFILE_TAB = {'nameMatches': '.*id/acn$', 'textMatches': '.*我的.*'}
+    MEETING_TAB = {'text': '会议'}
+    CONTACTS_TAB = {'textMatches': '.*通讯录.*'}
+    PROFILE_TAB = {'textMatches': '.*我的.*'}
     
     # Meeting page elements
     JOIN_MEETING = {'text': '加入会议'}
@@ -18,14 +26,29 @@ class HomePageElements:
     
     # Meeting number input
     MEETING_NUMBER_INPUT = {'text': '请输入会议号'}
-    JOIN_BUTTON = {'text': '加入会议'}
+    JOIN_BUTTON = {'text': '加入会议', 'nameMatches': '.*xb$'}
+
+class BookMeetingElements:
+    # Book meeting elements
+    MEETING_LIST = {'typeMatches': '.*RecyclerView'}
+    MEETING_LIST_ITEMS = {'nameMatches': '.*ViewGroup$'}
+    START_TIME = {'text': '开始时间'}
+    CONFIRM_BUTTON = {'desc': '确定'}
+    COMPLETE_BUTTON = {'text': '完成'}
+    CONFLICT_PROMPT = {'text': '会议冲突提示'}
+    BOOK_ANYWAY_BUTTON = {'text': '仍然预定'}
+    CANCEL_BUTTON = {'text': '取消'}
+    BACK_BUTTON = {'desc': '返回'}
+    NEXT_STEP_BUTTON = {'text': '下一步'}
     
-    # Meeting controls
-    END_MEETING = {'text': '结束'}
-    TURN_ON_VIDEO = {'text': '开启视频'}
+    # Time selection
+    TIME_PICKER_START_POINT = [0.6, 0.8]
+    TIME_PICKER_END_POINT = [0.6, 0.75]
+    TIME_PICKER_DURATION = 0.5
 
 class InMeetingElements:
     # Default page elements
+    TURN_ON_VIDEO = {'text': '开启视频'}
     MORE_BUTTON = {'text': '更多'}
     END_MEETING = {'text': '结束'}
     END_MEETING_CONFIRM = {'text': '结束会议'}
@@ -48,12 +71,6 @@ class PopupElements:
     CLOSE_VIDEO = {'text': '关闭视频'}
     NOTIFICATION = {'text': '开启消息通知'}
     THINK_AGAIN = {'text': '再想想'}
-    NEXT_INSTALL = {'text': '下次安装'}
-
-class Timeouts:
-    DEFAULT_WAIT = 5
-    SHORT_WAIT = 3
-    LONG_WAIT = 10
-    POPUP_CHECK = 5
-    POPUP_CLICK = 1
-    POPUP_POLL = 0.5 
+    NEXT_INSTALL = {'text': '下次安装'} 
+    UPDATE_NOW = {'text': '立即更新'}
+    CLOSE_UPDATE = {'nameMatches': '.*dj$'}

@@ -7,12 +7,13 @@
 from airtest.core.api import *
 from poco.exceptions import PocoNoSuchNodeException
 from moduls.android.common.poco_common import *
-from moduls.android.common.ui_elements import Timeouts
+from moduls.android.common.ui_elements import WaitTime
 
 class BasePage:
     def __init__(self):
         self.poco = poco
-        self.timeout = Timeouts.DEFAULT_WAIT
+        self.timeout = WaitTime.LONG
+        self.sleep_interval = WaitTime.SHORT
 
     def wait_for_element(self, element_locator, timeout=None):
         """Wait for an element to appear on the screen"""
@@ -23,12 +24,16 @@ class BasePage:
         except PocoNoSuchNodeException:
             return False
 
-    def click_element(self, element_locator, sleep_interval=1):
+    def click_element(self, element_locator):
         """Click on an element if it exists"""
         if self.wait_for_element(element_locator):
-            self.poco(**element_locator).click(sleep_interval=sleep_interval)
+            self.poco(**element_locator).click(sleep_interval=self.sleep_interval)
             return True
         return False
+
+    def click_existed_element(self, element_locator):
+        self.poco(**element_locator).click(sleep_interval=self.sleep_interval)
+        return True
 
     def element_exists(self, element_locator):
         """Check if an element exists"""

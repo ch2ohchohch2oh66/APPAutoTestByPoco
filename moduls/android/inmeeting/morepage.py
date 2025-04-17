@@ -2,61 +2,69 @@
 # -*- coding: utf-8 -*-
 # Author: Andy Freeman
 # Date: 2025/3/20
-# Description: Keep Hungry Keep Foolish
+# Description: More page functionality
 
 from time import sleep
-from moduls.android.common.base_page import BasePage
-from moduls.android.common.ui_elements import InMeetingElements, Timeouts
-from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
-from moduls.android.common.poco_common import *
+from airtest.core.api import *
 
-class Record(BasePage):
+from moduls.android.common.base_page import BasePage
+from moduls.android.common.poco_common import *
+from moduls.android.common.ui_elements import InMeetingElements, WaitTime
+from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
+
+class MorePage(BasePage):
     def __init__(self):
         super().__init__()
         self.elements = InMeetingElements()
-
-    def start_record(self):
-        """开启录制"""
-        logger.info('开启录制')
-        self.click_element(self.elements.CLOUD_RECORDING)
-        if self.element_exists(self.elements.START_RECORDING):
-            self.click_element(self.elements.START_RECORDING)
-        logger.info('开启录制成功')
-
-    def pause_record(self):
-        """暂停录制"""
-        logger.info('暂停录制')
-        if (self.element_exists(self.elements.RECORDING_STATUS) and 
-            not self.element_exists(self.elements.PAUSE_RECORDING)):
-            self.click_element(self.elements.RECORDING_STATUS)
-            self.click_element(self.elements.PAUSE_RECORDING)
-        logger.info('暂停录制成功')
-
-    def restore_record(self):
-        """恢复录制"""
-        logger.info('恢复录制')
-        if self.element_exists(self.elements.RECORDING_PAUSED):
-            self.click_element(self.elements.RECORDING_PAUSED)
-            self.click_element(self.elements.RESUME_RECORDING)
-        logger.info('恢复录制成功')
-
-    def stop_record(self):
-        """结束录制"""
-        logger.info('结束录制')
-        if self.element_exists(self.elements.RECORDING_STATUS):
-            self.click_element(self.elements.RECORDING_STATUS)
-            self.click_element(self.elements.STOP_RECORDING)
-            self.click_element(self.elements.STOP_RECORDING_CONFIRM)
-        logger.info('结束录制成功')
-
-    def record(self):
-        """执行完整的录制流程"""
-        InmeetingDefaultpage().click_more_button()
-        sleep(1)
-        self.start_record()
-        sleep(5)
-        self.pause_record()
-        sleep(5)
-        self.restore_record()
-        sleep(5)
-        self.stop_record()
+    
+    def click_more_button(self):
+        """点击更多按钮"""
+        logger.info('点击更多按钮')
+        try:
+            self.click_element(self.elements.MORE_BUTTON)
+            sleep(WaitTime.ULTRA_SHORT)
+            return True
+        except Exception as e:
+            logger.error(f"点击更多按钮失败: {e}")
+            return False
+    
+    def click_end_meeting(self):
+        """点击结束会议"""
+        logger.info('点击结束会议')
+        try:
+            self.click_element(self.elements.END_MEETING_BUTTON)
+            sleep(WaitTime.MEDIUM)
+            return True
+        except Exception as e:
+            logger.error(f"点击结束会议失败: {e}")
+            return False
+    
+    def click_confirm_end(self):
+        """点击确认结束"""
+        logger.info('点击确认结束')
+        try:
+            self.click_element(self.elements.CONFIRM_END_BUTTON)
+            sleep(WaitTime.SHORT)
+            return True
+        except Exception as e:
+            logger.error(f"点击确认结束失败: {e}")
+            return False
+    
+    def end_meeting(self):
+        """结束会议流程"""
+        logger.info('开始结束会议')
+        
+        # 点击更多按钮
+        if not self.click_more_button():
+            return False
+        
+        # 点击结束会议
+        if not self.click_end_meeting():
+            return False
+        
+        # 点击确认结束
+        if not self.click_confirm_end():
+            return False
+        
+        logger.info('结束会议成功')
+        return True
