@@ -44,5 +44,3 @@ def close_android_app(package_name=APP_PACKAGE['tencent_meeting']):
 if __name__ == "__main__":
     # 使用配置文件中的应用包名
     open_android_app(APP_PACKAGE['tencent_meeting'])
-    # 也可以使用其他应用包名
-    # open_android_app(APP_PACKAGE['xylink'])

@@ -20,8 +20,7 @@ class WaitTime:
 
 # 应用包名配置
 APP_PACKAGE = {
-    'tencent_meeting': 'com.tencent.wemeet.app',
-    'xylink': 'com.ainemo.dragoon'
+    'tencent_meeting': 'com.tencent.wemeet.app'
 }
 
 # 图片路径配置

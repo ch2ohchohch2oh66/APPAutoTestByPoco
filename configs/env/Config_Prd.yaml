@@ -1,7 +1,3 @@
-server:
-  server_addr: zone.xylink.com
-  http_port: 80
-  https_port: 443
 user:
   account: 18804010001
   password: Test12345_
