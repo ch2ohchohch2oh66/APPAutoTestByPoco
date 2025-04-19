@@ -51,10 +51,10 @@ class Meeting(BasePage):
         sleep(WaitTime.ULTRA_SHORT)
         
         # 返回一次以退出输入法应用
-        if poco(name='com.sohu.inputmethod.sogou:id/aut').exists():
-            logger.info('退出输入法应用')
-            keyevent('BACK')
-            sleep(WaitTime.ULTRA_SHORT)
+        # if poco(name='com.sohu.inputmethod.sogou:id/aut').exists():
+        #     logger.info('退出输入法应用')
+        #     keyevent('BACK')
+        #     sleep(WaitTime.ULTRA_SHORT)
             
         self.click_element(self.home_page_elements.JOIN_BUTTON)
         self.wait_for_element(self.in_meeting_elements.END_MEETING, WaitTime.MEDIUM)
