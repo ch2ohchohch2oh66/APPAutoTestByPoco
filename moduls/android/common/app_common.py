@@ -7,6 +7,7 @@
 import logging
 from time import sleep
 from airtest.core.api import start_app, stop_app, wake
+from configs.other_configs import APP_PACKAGE
 
 logging.basicConfig(
     level=logging.INFO,
@@ -20,7 +21,7 @@ logging.getLogger('airtest').setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def open_android_app(package_name="com.tencent.wemeet.app"):
+def open_android_app(package_name=APP_PACKAGE['tencent_meeting']):
     """
     Open the specified Android app_common.
     """
@@ -30,7 +31,7 @@ def open_android_app(package_name="com.tencent.wemeet.app"):
     start_app(package_name)
     logger.info("启动应用成功")
 
-def close_android_app(package_name="com.tencent.wemeet.app"):
+def close_android_app(package_name=APP_PACKAGE['tencent_meeting']):
     """
     Close the specified Android app_common.
     """
@@ -41,6 +42,7 @@ def close_android_app(package_name="com.tencent.wemeet.app"):
 
 
 if __name__ == "__main__":
-    # package_name="com.ainemo.dragoon"
-    package_name="com.tencent.wemeet.app"
-    open_android_app(package_name)
+    # 使用配置文件中的应用包名
+    open_android_app(APP_PACKAGE['tencent_meeting'])
+    # 也可以使用其他应用包名
+    # open_android_app(APP_PACKAGE['xylink'])

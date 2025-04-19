@@ -4,14 +4,6 @@
 # Date: 2025/3/20
 # Description: UI element locators configuration
 
-class WaitTime:
-    """等待时间常量"""
-    ULTRA_SHORT = 0.5  # 超短等待，用于极快速操作
-    SHORT = 1         # 短等待，用于快速操作
-    MEDIUM = 3        # 中等等待，用于一般操作
-    LONG = 5          # 长等待，用于较慢操作
-    EXTREME = 10      # 极长等待，用于极慢操作
-
 class HomePageElements:
     # Bottom navigation
     MEETING_TAB = {'text': '会议'}

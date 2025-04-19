@@ -6,6 +6,6 @@ user:
   account: 18804010001
   password: Test12345_
 conference:
-  meetingroom_number:9047264121
-  meetingroom_password:123456
-  control_password:123456
+  meetingroom_number: 8104536077
+  meetingroom_password: 123456
+  control_password: 123456

@@ -9,7 +9,8 @@ from airtest.core.api import *
 
 from moduls.android.common.base_page import BasePage
 from moduls.android.common.poco_common import *
-from moduls.android.common.ui_elements import InMeetingElements, WaitTime
+from configs.android.ui_elements import InMeetingElements
+from configs.other_configs import WaitTime
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 class Record(BasePage):

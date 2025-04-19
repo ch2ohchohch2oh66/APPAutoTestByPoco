@@ -10,16 +10,8 @@ from airtest.core.api import *
 
 from moduls.android.common.base_page import BasePage
 from moduls.android.common.poco_common import *
-from moduls.android.common.ui_elements import BookMeetingElements, WaitTime
-
-# 获取项目根目录
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROJECT_ROOT = os.path.dirname(PROJECT_ROOT)
-# 图片路径配置
-TEMPLATE_PATHS = {
-    'meeting_image_path': os.path.join(PROJECT_ROOT, 'resources', 'android', 'homepage', 'meeting'),
-    'book_meeting_image_path': os.path.join(PROJECT_ROOT, 'resources', 'android', 'book_meeting')
-}
+from configs.android.ui_elements import BookMeetingElements
+from configs.other_configs import WaitTime, IMAGE_PATHS, IMAGE_FILES
 
 class BookMeeting(BasePage):
     def __init__(self):
@@ -42,7 +34,7 @@ class BookMeeting(BasePage):
         """点击预定会议图标"""
         logger.info('点击预定会议图标')
         try:
-            touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['meeting_image_path'], 'book_meeting.jpg'), 
+            touch(Template(os.path.join(IMAGE_PATHS['meeting_image_path'], IMAGE_FILES['book_meeting']), 
                           ST.THRESHOLD, ST.FIND_TIMEOUT))
             return True
         except Exception as e:
@@ -57,7 +49,7 @@ class BookMeeting(BasePage):
                 self.click_element(self.elements.NEXT_STEP_BUTTON)
                 return True
             else:
-                touch(Template(os.path.join(PROJECT_ROOT, TEMPLATE_PATHS['book_meeting_image_path'], 'next_step.jpg'), 
+                touch(Template(os.path.join(IMAGE_PATHS['book_meeting_image_path'], IMAGE_FILES['next_step']), 
                               ST.THRESHOLD, ST.FIND_TIMEOUT))
                 return True
         except Exception as e:

@@ -9,8 +9,10 @@ from time import sleep
 from airtest.core.api import *
 from moduls.android.common.poco_common import *
 from moduls.android.common.base_page import BasePage
-from moduls.android.common.ui_elements import HomePageElements, InMeetingElements, WaitTime
+from configs.android.ui_elements import HomePageElements, InMeetingElements
+from configs.other_configs import WaitTime
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
+from utils.config_reader import ConfigReader
 
 # 获取项目根目录
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -42,9 +44,15 @@ class Meeting(BasePage):
         assert self.element_exists(self.home_page_elements.BOOK_MEETING), '未找到"预定会议"'
         assert self.element_exists(self.home_page_elements.SHARE_SCREEN), '未找到"共享屏幕"'
 
-    def join_meeting(self, meeting_number='8104536077'):
+    def join_meeting(self, meeting_number=None):
         """加入会议"""
         logger.info('加入会议')
+        
+        # 如果未指定会议号，从配置文件获取
+        if meeting_number is None:
+            meeting_number = ConfigReader.get_meeting_number()
+            logger.info(f'从配置文件获取会议号: {meeting_number}')
+        
         self.click_element(self.home_page_elements.JOIN_MEETING)
         self.click_element(self.home_page_elements.MEETING_NUMBER_INPUT)
         self.set_element_text(self.home_page_elements.MEETING_NUMBER_INPUT, meeting_number)

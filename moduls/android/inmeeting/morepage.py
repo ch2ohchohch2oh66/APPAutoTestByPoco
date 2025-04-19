@@ -9,7 +9,8 @@ from airtest.core.api import *
 
 from moduls.android.common.base_page import BasePage
 from moduls.android.common.poco_common import *
-from moduls.android.common.ui_elements import InMeetingElements, WaitTime
+from configs.android.ui_elements import InMeetingElements
+from configs.other_configs import WaitTime
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 class MorePage(BasePage):
@@ -32,7 +33,7 @@ class MorePage(BasePage):
         """点击结束会议"""
         logger.info('点击结束会议')
         try:
-            self.click_element(self.elements.END_MEETING_BUTTON)
+            self.click_element(self.elements.END_MEETING)
             sleep(WaitTime.MEDIUM)
             return True
         except Exception as e:
@@ -43,7 +44,7 @@ class MorePage(BasePage):
         """点击确认结束"""
         logger.info('点击确认结束')
         try:
-            self.click_element(self.elements.CONFIRM_END_BUTTON)
+            self.click_element(self.elements.END_MEETING_CONFIRM)
             sleep(WaitTime.SHORT)
             return True
         except Exception as e:

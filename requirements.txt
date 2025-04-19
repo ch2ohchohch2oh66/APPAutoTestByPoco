@@ -1,2 +1,3 @@
 airtest==1.3.5
 pocoui==1.0.94
+pyyaml==6.0.2

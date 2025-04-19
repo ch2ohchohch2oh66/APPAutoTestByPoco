@@ -9,7 +9,8 @@ import time
 
 from moduls.android.common.app_common import *
 from moduls.android.common.poco_common import poco
-from moduls.android.common.ui_elements import PopupElements, WaitTime
+from configs.android.ui_elements import PopupElements
+from configs.other_configs import WaitTime, APP_PACKAGE
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.record import Record
 from moduls.android.homepage.book_meeting import BookMeeting
@@ -25,7 +26,7 @@ class Test_application_init(object):
 
         try:
             # 执行测试流程
-            open_android_app(package_name="com.tencent.wemeet.app")
+            open_android_app(APP_PACKAGE['tencent_meeting'])
             time.sleep(WaitTime.MEDIUM)  # 等待应用启动
             Meeting().check_homepage()
             Meeting().check_meetingpage()
@@ -35,7 +36,7 @@ class Test_application_init(object):
             BookMeeting().book_meeting()
         finally:
             # 关闭应用并停止弹窗处理线程
-            close_android_app(package_name="com.tencent.wemeet.app")
+            close_android_app(APP_PACKAGE['tencent_meeting'])
             exit_event.set()  # 停止弹窗处理线程
             thread_handle_popup.join(timeout=WaitTime.MEDIUM)  # 等待线程安全退出
 

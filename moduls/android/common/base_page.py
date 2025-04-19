@@ -7,7 +7,7 @@
 from airtest.core.api import *
 from poco.exceptions import PocoNoSuchNodeException
 from moduls.android.common.poco_common import *
-from moduls.android.common.ui_elements import WaitTime
+from configs.other_configs import WaitTime
 
 class BasePage:
     def __init__(self):
