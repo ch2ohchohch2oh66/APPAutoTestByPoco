@@ -4,13 +4,10 @@
 # Date: 2025/3/18
 # Description: Keep Hungry Keep Foolish
 
-import threading
 import time
 import logging
 
 from moduls.android.common.app_common import *
-from moduls.android.common.poco_common import poco
-from configs.android.ui_elements import PopupElements
 from configs.other_configs import WaitTime, APP_PACKAGE
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.record import Record
@@ -21,12 +18,6 @@ logger = logging.getLogger(__name__)
 class Test_application_init(object):
 
     def test_01_demo(self):
-        # 创建退出事件和线程
-        exit_event = threading.Event()
-        thread_handle_popup = threading.Thread(target=self.handle_popup, args=(exit_event,))
-        thread_handle_popup.daemon = True
-        thread_handle_popup.start()
-
         try:
             # 执行测试流程
             open_android_app(APP_PACKAGE['tencent_meeting'])
@@ -38,56 +29,8 @@ class Test_application_init(object):
             Meeting().end_meeting()
             BookMeeting().book_meeting()
         finally:
-            # 关闭应用并停止弹窗处理线程
+            # 关闭应用
             close_android_app(APP_PACKAGE['tencent_meeting'])
-            exit_event.set()  # 停止弹窗处理线程
-            thread_handle_popup.join(timeout=WaitTime.MEDIUM)  # 等待线程安全退出
-
-    def handle_popup(self, exit_event):
-        while not exit_event.is_set():
-            start_time = time.time()  # 记录开始时间
-            while (time.time() - start_time) < WaitTime.MEDIUM and not exit_event.is_set():
-                if poco(**PopupElements.ALLOW_ONCE).exists():
-                    try:
-                        logger.info('检测到权限请求弹窗，点击"允许本次使用"')
-                        poco(**PopupElements.ALLOW_ONCE).click()
-                        time.sleep(WaitTime.ULTRA_SHORT)  
-                    except Exception as e:
-                        logger.error(f"处理权限请求弹窗失败: {e}")
-                    break  # 处理完弹窗后退出当前循环
-                if poco(**PopupElements.POOR_NETWORK).exists():
-                    try:
-                        logger.info('检测到网络状况不佳弹窗，点击"关闭视频"')
-                        poco(**PopupElements.CLOSE_VIDEO).click()
-                        time.sleep(WaitTime.ULTRA_SHORT)  
-                    except Exception as e:
-                        logger.error(f"处理网络状况不佳弹窗失败: {e}")
-                    break
-                if poco(**PopupElements.NOTIFICATION).exists():
-                    try:
-                        logger.info('检测到消息通知弹窗，点击"再想想"')
-                        poco(**PopupElements.THINK_AGAIN).click()
-                        time.sleep(WaitTime.ULTRA_SHORT)  
-                    except Exception as e:
-                        logger.error(f"处理消息通知弹窗失败: {e}")
-                    break
-                if poco(**PopupElements.NEXT_INSTALL).exists():
-                    try:
-                        logger.info('检测到安装提示弹窗，点击"下次安装"')
-                        poco(**PopupElements.NEXT_INSTALL).click()
-                        time.sleep(WaitTime.ULTRA_SHORT)  
-                    except Exception as e:
-                        logger.error(f"处理安装提示弹窗失败: {e}")
-                    break
-                if poco(**PopupElements.UPDATE_NOW).exists():
-                    try:
-                        logger.info('检测到更新提示弹窗，点击关闭按钮')
-                        poco(**PopupElements.CLOSE_UPDATE).click()
-                        time.sleep(WaitTime.ULTRA_SHORT)  
-                    except Exception as e:
-                        logger.error(f"处理更新提示弹窗失败: {e}")
-                    break
-                time.sleep(WaitTime.ULTRA_SHORT)  # 减少轮询频率
 
 
 if __name__ == '__main__':
