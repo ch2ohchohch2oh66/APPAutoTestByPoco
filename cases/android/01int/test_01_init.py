@@ -12,12 +12,15 @@ from configs.other_configs import WaitTime, APP_PACKAGE
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.record import Record
 from moduls.android.homepage.book_meeting import BookMeeting
+from cases.android.common.test_base import TestBase
 
 logger = logging.getLogger(__name__)
 
-class Test_application_init(object):
+class Test_application_init(TestBase):
+    """应用初始化测试"""
 
     def test_01_demo(self):
+        """测试主流程"""
         try:
             # 执行测试流程
             open_android_app(APP_PACKAGE['tencent_meeting'])
