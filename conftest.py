@@ -8,6 +8,8 @@ import logging
 import pytest
 import os
 import sys
+# 导入弹窗处理模块
+from moduls.android.common.popup_handler import start_popup_handler, stop_popup_handler
 
 # 配置日志
 logging.basicConfig(
@@ -17,15 +19,13 @@ logging.basicConfig(
         logging.StreamHandler()  # 输出到控制台
     ]
 )
+logger = logging.getLogger(__name__)
 
 # 将项目根目录添加到Python路径
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
-# 导入弹窗处理模块
-from moduls.android.common.popup_handler import start_popup_handler, stop_popup_handler
 
-logger = logging.getLogger(__name__)
 
 # 会话级别的fixture，用于处理弹窗
 @pytest.fixture(scope="session", autouse=True)
