@@ -5,7 +5,7 @@
 # Description: Keep Hungry Keep Foolish
 from time import sleep
 
-from moduls.android.inmeeting.morepage import Record
+from moduls.android.inmeeting.record import Record
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 def test_01_record():
