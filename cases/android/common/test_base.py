@@ -16,19 +16,18 @@ class TestBase:
     def setup_class(cls):
         """在测试类执行前调用一次，用于设置测试环境"""
         logger.info(f"==== 开始测试类 {cls.__name__} ====")
-        logger.info("启动弹窗处理器")
-        start_popup_handler()
     
     @classmethod
     def teardown_class(cls):
         """在测试类执行后调用一次，用于清理测试环境"""
-        logger.info("停止弹窗处理器")
         logger.info(f"==== 测试类 {cls.__name__} 已完成 ====")
-    
+
+    @classmethod
     def setup_method(self, method):
         """在每个测试方法执行前调用"""
         logger.info(f"开始测试: {method.__name__}")
-    
+
+    @classmethod
     def teardown_method(self, method):
         """在每个测试方法执行后调用"""
         logger.info(f"测试完成: {method.__name__}") 
