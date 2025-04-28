@@ -5,7 +5,6 @@
 # Description: 测试基类，提供公共功能
 
 import logging
-from moduls.android.common.popup_handler import start_popup_handler, stop_popup_handler
 
 logger = logging.getLogger(__name__)
 
