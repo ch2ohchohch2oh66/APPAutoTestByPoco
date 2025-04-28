@@ -7,7 +7,7 @@
 import logging
 from time import sleep
 from airtest.core.api import start_app, stop_app, wake
-from configs.other_configs import APP_PACKAGE
+from configs.android.other_configs import APP_PACKAGE
 
 logging.basicConfig(
     level=logging.INFO,

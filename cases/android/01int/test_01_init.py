@@ -8,7 +8,7 @@ import time
 import logging
 
 from moduls.android.common.app_common import *
-from configs.other_configs import WaitTime, APP_PACKAGE
+from configs.android.other_configs import WaitTime, APP_PACKAGE
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.record import Record
 from moduls.android.homepage.book_meeting import BookMeeting

@@ -7,7 +7,7 @@
 import os.path
 
 # 获取项目根目录
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 等待时间常量
 class WaitTime:

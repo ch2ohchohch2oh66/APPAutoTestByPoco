@@ -10,7 +10,7 @@ import logging
 
 from moduls.android.common.poco_common import poco
 from configs.android.ui_elements import PopupElements
-from configs.other_configs import WaitTime
+from configs.android.other_configs import WaitTime
 
 logger = logging.getLogger(__name__)
 

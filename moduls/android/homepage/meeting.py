@@ -10,7 +10,7 @@ from airtest.core.api import *
 from moduls.android.common.poco_common import *
 from moduls.android.common.base_page import BasePage
 from configs.android.ui_elements import HomePageElements, InMeetingElements
-from configs.other_configs import WaitTime
+from configs.android.other_configs import WaitTime
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 from utils.config_reader import ConfigReader
 

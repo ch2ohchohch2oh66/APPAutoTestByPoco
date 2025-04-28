@@ -10,7 +10,7 @@ from airtest.core.api import *
 from moduls.android.common.base_page import BasePage
 from moduls.android.common.poco_common import *
 from configs.android.ui_elements import InMeetingElements
-from configs.other_configs import WaitTime
+from configs.android.other_configs import WaitTime
 from moduls.android.inmeeting.defaultpage import InmeetingDefaultpage
 
 class MorePage(BasePage):

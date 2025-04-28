@@ -11,7 +11,7 @@ from airtest.core.api import *
 from moduls.android.common.base_page import BasePage
 from moduls.android.common.poco_common import *
 from configs.android.ui_elements import BookMeetingElements
-from configs.other_configs import WaitTime, IMAGE_PATHS, IMAGE_FILES
+from configs.android.other_configs import WaitTime, IMAGE_PATHS, IMAGE_FILES
 
 class BookMeeting(BasePage):
     def __init__(self):
