@@ -29,29 +29,25 @@ logger = logging.getLogger(__name__)
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, project_root)
 
-# 会话级别的fixture，用于处理弹窗
+# 会话级别的fixture，用于处理弹窗和应用生命周期
 @pytest.fixture(scope="session", autouse=True)
-def handle_popup_fixture():
-    """自动启动和停止弹窗处理的会话级别fixture"""
+def app_lifecycle_fixture():
+    """自动启动应用、处理弹窗，并在结束时清理的会话级别fixture"""
+    # 启动应用
+    logger.info("启动应用...")
+    open_android_app(APP_PACKAGE['tencent_meeting'])
+    sleep(WaitTime.MEDIUM)  # 等待应用启动
+    
     # 启动弹窗处理
+    logger.info("启动弹窗处理...")
     start_popup_handler()
     
     # 等待测试执行
     yield
     
     # 停止弹窗处理
+    logger.info("停止弹窗处理...")
     stop_popup_handler()
-
-# 类级别的fixture，用于应用的启动和关闭
-@pytest.fixture(scope="class", autouse=True)
-def app_operation_fixture():
-    """自动启动和关闭应用的类级别fixture"""
-    # 启动应用
-    logger.info("启动应用...")
-    open_android_app(APP_PACKAGE['tencent_meeting'])
-    sleep(WaitTime.MEDIUM)  # 等待应用启动
-    # 等待测试执行
-    yield
     
     # 关闭应用
     logger.info("关闭应用...")

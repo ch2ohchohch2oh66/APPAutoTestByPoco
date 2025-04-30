@@ -66,3 +66,9 @@ class PopupElements:
     NEXT_INSTALL = {'text': '下次安装'} 
     UPDATE_NOW = {'text': '立即更新'}
     CLOSE_UPDATE = {'nameMatches': '.*dj$'}
+    
+    # Advertisement popups
+    SKIP_AD = {'text': '跳过'}  # 通用跳过按钮
+    SKIP_AD_WITH_TIME = {'textMatches': '跳过[0-9]+s?'}  # 带倒计时的跳过按钮
+    CLOSE_AD = {'desc': '关闭广告'}  # 关闭广告按钮
+    CLOSE_AD_X = {'nameMatches': '.*关闭.*'}
