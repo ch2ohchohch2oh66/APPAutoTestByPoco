@@ -20,6 +20,7 @@ class BasePage:
         timeout = timeout or self.timeout
         try:
             self.poco(**element_locator).wait_for_appearance(timeout)
+            logger.info(f"Element {element_locator} appeared.")
             return True
         except PocoNoSuchNodeException:
             return False

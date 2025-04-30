@@ -13,7 +13,11 @@ from moduls.android.common.poco_common import *
 from configs.android.ui_elements import BookMeetingElements
 from configs.android.other_configs import WaitTime, IMAGE_PATHS, IMAGE_FILES
 
+logger = logging.getLogger(__name__)
+
 class BookMeeting(BasePage):
+    """预约会议页面"""
+    
     def __init__(self):
         super().__init__()
         self.elements = BookMeetingElements()
@@ -40,7 +44,7 @@ class BookMeeting(BasePage):
         except Exception as e:
             logger.error(f"点击预定会议图标失败: {e}")
             return False
-    
+             
     def click_next_step(self):
         """点击下一步按钮"""
         logger.info('点击下一步按钮')
@@ -55,7 +59,7 @@ class BookMeeting(BasePage):
         except Exception as e:
             logger.error(f"点击下一步按钮失败: {e}")
             return False
-    
+             
     def set_meeting_time(self):
         """设置会议时间"""
         logger.info('设置会议时间')
@@ -69,17 +73,28 @@ class BookMeeting(BasePage):
         
         poco.swipe(start_point, end_point, duration=duration)
         sleep(WaitTime.SHORT)
-        
+
         self.click_element(self.elements.CONFIRM_BUTTON)
-        self.click_element(self.elements.COMPLETE_BUTTON)
     
-    def handle_meeting_conflict(self):
-        """处理会议冲突提示"""
+    def click_complete(self):
+        """点击完成按钮并处理可能的时间冲突"""
+        logger.info('点击完成按钮')
+        self.click_element(self.elements.COMPLETE_BUTTON)
+        sleep(WaitTime.MEDIUM)
+        
+        # 检查并处理时间冲突
         if self.element_exists(self.elements.CONFLICT_PROMPT):
-            logger.info('处理会议冲突提示')
+            logger.info('检测到时间冲突提示')
             self.click_element(self.elements.BOOK_ANYWAY_BUTTON)
-            return True
-        return False
+            sleep(WaitTime.SHORT)
+    
+    # def handle_meeting_conflict(self):
+    #     """处理会议冲突提示"""
+    #     if self.element_exists(self.elements.CONFLICT_PROMPT):
+    #         logger.info('处理会议冲突提示')
+    #         self.click_element(self.elements.BOOK_ANYWAY_BUTTON)
+    #         return True
+    #     return False
     
     def cancel_and_return(self):
         """取消并返回"""
@@ -107,8 +122,8 @@ class BookMeeting(BasePage):
         self.set_meeting_time()
         sleep(WaitTime.SHORT)
         
-        # 处理可能出现的会议冲突
-        self.handle_meeting_conflict()
+        # 点击完成并处理可能的时间冲突
+        self.click_complete()
         sleep(WaitTime.SHORT)
         
         # 取消并返回
