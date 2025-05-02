@@ -75,6 +75,7 @@ class BookMeeting(BasePage):
         sleep(WaitTime.SHORT)
 
         self.click_element(self.elements.CONFIRM_BUTTON)
+        sleep(WaitTime.SHORT)
     
     def click_complete(self):
         """点击完成按钮并处理可能的时间冲突"""
@@ -83,10 +84,12 @@ class BookMeeting(BasePage):
         sleep(WaitTime.MEDIUM)
         
         # 检查并处理时间冲突
+        logger.info('检查时间冲突')
         if self.element_exists(self.elements.CONFLICT_PROMPT):
             logger.info('检测到时间冲突提示')
             self.click_element(self.elements.BOOK_ANYWAY_BUTTON)
             sleep(WaitTime.SHORT)
+        logger.info('未检测到时间冲突提示')
     
     # def handle_meeting_conflict(self):
     #     """处理会议冲突提示"""
