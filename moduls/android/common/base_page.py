@@ -33,8 +33,11 @@ class BasePage:
         return False
 
     def click_existed_element(self, element_locator):
-        self.poco(**element_locator).click(sleep_interval=self.sleep_interval)
-        return True
+        if self.element_exists(element_locator):
+            logger.info(f"Element {element_locator} exists, clicking it.")
+            self.poco(**element_locator).click(sleep_interval=self.sleep_interval)
+        else:
+            logger.info(f"Element {element_locator} does not exist, skipping click.")
 
     def element_exists(self, element_locator):
         """Check if an element exists"""
