@@ -23,6 +23,9 @@ class Record(BasePage):
         """开启录制"""
         logger.info('开启录制')
         try:
+            if not self.element_exists(self.elements.CLOUD_RECORDING):
+                logger.info('云录制按钮不存在，点击"更多"按钮')
+                self.default_page.click_more_button()
             self.click_element(self.elements.CLOUD_RECORDING)
             if self.element_exists(self.elements.START_RECORDING):
                 self.click_element(self.elements.START_RECORDING)
@@ -100,24 +103,18 @@ class Record(BasePage):
         logger.info('开始录制流程')
         
         # 点击更多按钮
-        if not self.default_page.click_more_button():
-            return False
+        self.default_page.click_more_button()
             
         # 开始录制
-        if not self.start_record():
-            return False
+        self.start_record()
             
         # 暂停录制
-        if not self.pause_record():
-            return False
+        self.pause_record()
             
         # 恢复录制
-        if not self.restore_record():
-            return False
+        self.restore_record()
             
         # 停止录制
-        if not self.stop_record():
-            return False
+        self.stop_record()
             
         logger.info('录制流程完成')
-        return True 

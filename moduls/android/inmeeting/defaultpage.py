@@ -4,6 +4,7 @@
 # Date: 2025/3/20
 # Description: Keep Hungry Keep Foolish
 
+from poco.exceptions import PocoTargetTimeout, PocoNoSuchNodeException
 from moduls.android.common.base_page import BasePage
 from configs.android.ui_elements import InMeetingElements
 from moduls.android.common.poco_common import *
@@ -24,23 +25,21 @@ class InmeetingDefaultpage(BasePage):
     def click_more_button(self):
         """点击更多按钮"""
         logger.info('点击更多按钮')
-        if not self.element_exists(self.elements.MORE_BUTTON):
-            logger.info('更多按钮不存在，点击屏幕中间')
-            poco.click([0.5, 0.5])
-        # self.wait_for_element(self.elements.MORE_BUTTON)
-        self.click_element(self.elements.MORE_BUTTON)
-        return True
-
-    # def click_join_button(self):
-    #     """点击加入按钮"""
-    #     logger.info('点击加入按钮')
-    #     try:
-    #         self.click_element(self.elements.JOIN_BUTTON)
-    #         sleep(WaitTime.MEDIUM)
-    #         return True
-    #     except Exception as e:
-    #         logger.error(f"点击加入按钮失败: {e}")
-    #         return False
+        retry_count = 0
+        max_retries = 3
+        while retry_count < max_retries:
+            try:
+                if not self.element_exists(self.elements.MORE_BUTTON):
+                    logger.info('更多按钮不存在，点击屏幕中间')
+                    poco.click([0.5, 0.5])
+                self.click_element(self.elements.MORE_BUTTON)
+                return True
+            except (PocoTargetTimeout, PocoNoSuchNodeException) as e:
+                retry_count += 1
+                logger.error(f'点击更多按钮失败: {e}')
+                logger.info(f'重试中: ({retry_count}/{max_retries})')
+        logger.error('点击更多按钮失败，已达到最大重试次数')
+        return False
     
     def click_leave_button(self):
         """点击离开按钮"""
@@ -50,7 +49,7 @@ class InmeetingDefaultpage(BasePage):
             sleep(WaitTime.MEDIUM)
             return True
         except Exception as e:
-            logger.error(f"点击离开按钮失败: {e}")
+            logger.error(f'点击离开按钮失败: {e}')
             return False
     
     def click_confirm_leave(self):
@@ -61,19 +60,8 @@ class InmeetingDefaultpage(BasePage):
             sleep(WaitTime.SHORT)
             return True
         except Exception as e:
-            logger.error(f"点击确认离开失败: {e}")
+            logger.error(f'点击确认离开失败: {e}')
             return False
-    
-    # def join_meeting(self):
-    #     """加入会议流程"""
-    #     logger.info('开始加入会议')
-    #
-    #     # 点击加入按钮
-    #     if not self.click_join_button():
-    #         return False
-    #
-    #     logger.info('加入会议成功')
-    #     return True
     
     def leave_meeting(self):
         """离开会议流程"""
