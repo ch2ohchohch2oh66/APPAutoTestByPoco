@@ -27,7 +27,7 @@ def main():
     # 准备pytest参数
     pytest_args = [
         '--confcutdir', project_root,  # 指定conftest.py所在目录
-        '-v',  # 详细输出
+        '-vs',  # 详细输出
     ]
     
     # 如果命令行提供了额外参数，添加到pytest参数中
