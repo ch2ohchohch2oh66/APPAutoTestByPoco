@@ -78,3 +78,13 @@ class Meeting(BasePage):
         self.click_element(self.in_meeting_elements.END_MEETING_CONFIRM)
         self.click_existed_element(self.in_meeting_elements.END_MEETING_ACKNOWLEDGE)
         logger.info('结束会议成功')
+
+    def is_on_home_page(self):
+        """检查是否在首页"""
+        logger.info('检查是否在首页')
+        if self.element_exists(self.home_page_elements.MEETING_TAB):
+            logger.info('在首页')
+            return True
+        else:
+            logger.info('不在首页')
+            return False

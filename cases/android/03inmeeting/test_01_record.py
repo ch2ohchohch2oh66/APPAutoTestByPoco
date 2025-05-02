@@ -9,6 +9,7 @@ import logging
 from time import sleep
 
 from configs.android.other_configs import WaitTime
+from moduls.android.common.app_common import open_android_app
 from moduls.android.homepage.meeting import Meeting
 from moduls.android.inmeeting.record import Record
 
@@ -16,6 +17,13 @@ logger = logging.getLogger(__name__)
 
 class Test_InMeeting_Record:
     """会议中录制测试"""
+    def setup_class(self):
+        """测试类开始前检查是否在HomePage, 如果不在则重启APP以返回HomePage"""
+        logger.info("检查是否在HomePage...")
+        if not Meeting().is_on_home_page():
+            logger.info("不在HomePage，重启APP...")
+            open_android_app()
+            sleep(WaitTime.MEDIUM)
 
     def setup_method(self):
         """每个测试方法前加入会议"""
