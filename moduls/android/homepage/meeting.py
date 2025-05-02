@@ -76,5 +76,5 @@ class Meeting(BasePage):
         InmeetingDefaultpage().call_top_and_bottom_button()
         self.click_element(self.in_meeting_elements.END_MEETING)
         self.click_element(self.in_meeting_elements.END_MEETING_CONFIRM)
-        self.click_element(self.in_meeting_elements.END_MEETING_ACKNOWLEDGE)
+        self.click_existed_element(self.in_meeting_elements.END_MEETING_ACKNOWLEDGE)
         logger.info('结束会议成功')
