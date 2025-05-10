@@ -59,6 +59,8 @@ class InMeetingElements:
 class PopupElements:
     # Permission popups
     ALLOW_ONCE = {'text': '允许本次使用'}
+    ALLOW = {'text': '允许'}
+    DENY = {'text': '禁止'}
     POOR_NETWORK = {'text': '网络状况不佳'}
     CLOSE_VIDEO = {'text': '关闭视频'}
     NOTIFICATION = {'text': '开启消息通知'}

@@ -24,6 +24,13 @@ def handle_popups():
     
     while popup_handler_running:
         try:
+            # 一次性权限弹窗处理（同时有"允许"和"禁止"按钮时，优先点击"允许"）
+            if poco(**PopupElements.ALLOW).exists() and poco(**PopupElements.DENY).exists():
+                poco(**PopupElements.ALLOW).click()
+                logger.info('检测到一次性权限弹窗，已点击"允许"')
+                sleep(WaitTime.SHORT)
+                continue
+
             # 处理权限弹窗
             if poco(**PopupElements.ALLOW_ONCE).exists():
                 poco(**PopupElements.ALLOW_ONCE).click()

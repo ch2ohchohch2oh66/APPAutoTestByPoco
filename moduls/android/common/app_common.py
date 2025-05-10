@@ -6,7 +6,7 @@
 
 import logging
 from time import sleep
-from airtest.core.api import start_app, stop_app, wake
+from airtest.core.api import start_app, stop_app, wake, clear_app
 from configs.android.other_configs import APP_PACKAGE
 
 logging.basicConfig(
@@ -39,6 +39,7 @@ def close_android_app(package_name=APP_PACKAGE['tencent_meeting']):
     wake()
     stop_app(package_name)
     logger.info("关闭应用成功")
+    # clear_app(package_name)
 
 
 if __name__ == "__main__":
