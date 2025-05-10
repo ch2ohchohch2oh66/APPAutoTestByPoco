@@ -7,7 +7,7 @@
 from airtest.core.api import *
 from poco.exceptions import PocoNoSuchNodeException
 from moduls.android.common.poco_common import *
-from configs.android.other_configs import WaitTime
+from configs.android.other_configs import WaitTime, MAX_RETRY
 
 class BasePage:
     def __init__(self):
@@ -42,6 +42,23 @@ class BasePage:
     def element_exists(self, element_locator):
         """Check if an element exists"""
         return self.poco(**element_locator).exists()
+    
+    def wait_element_exists(self, element, max_retries=MAX_RETRY, interval=WaitTime.MEDIUM):
+        """
+        检查元素是否存在，失败时自动重试
+        :param element: 元素定位
+        :param retries: 最大重试次数
+        :param interval: 每次重试间隔秒数
+        :return: True/False
+        """
+        for attempt in range(max_retries):
+            if self.element_exists(element):
+                return True
+            if attempt < max_retries - 1:
+                logger.warning(f'元素未找到，{interval}s后重试({attempt+1}/{max_retries})...')
+                sleep(interval)
+        logger.error(f'重试{max_retries}次后元素依然未找到')
+        return False
 
     def get_element_text(self, element_locator):
         """Get text of an element if it exists"""

@@ -8,7 +8,7 @@ from poco.exceptions import PocoTargetTimeout, PocoNoSuchNodeException
 from moduls.android.common.base_page import BasePage
 from configs.android.ui_elements import InMeetingElements
 from moduls.android.common.poco_common import *
-from configs.android.other_configs import WaitTime
+from configs.android.other_configs import WaitTime, MAX_RETRY
 from time import sleep
 from airtest.core.api import *
 
@@ -26,7 +26,7 @@ class InmeetingDefaultpage(BasePage):
         """点击更多按钮"""
         logger.info('点击更多按钮')
         retry_count = 0
-        max_retries = 3
+        max_retries = MAX_RETRY
         while retry_count < max_retries:
             try:
                 if not self.element_exists(self.elements.MORE_BUTTON):

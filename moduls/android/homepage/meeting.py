@@ -32,17 +32,18 @@ class Meeting(BasePage):
     def check_homepage(self):
         """检查首页元素是否存在"""
         logger.info('检查首页')
-        assert self.element_exists(self.home_page_elements.MEETING_TAB), '未找到"会议"'
-        assert self.element_exists(self.home_page_elements.CONTACTS_TAB), '未找到"通讯录"'
-        assert self.element_exists(self.home_page_elements.PROFILE_TAB), '未找到"我的"'
+        assert self.wait_element_exists(self.home_page_elements.MEETING_TAB), '未找到"会议"'
+        assert self.wait_element_exists(self.home_page_elements.CONTACTS_TAB), '未找到"通讯录"'
+        assert self.wait_element_exists(self.home_page_elements.PROFILE_TAB), '未找到"我的"'
 
     def check_meetingpage(self):
         """检查会议页面元素是否存在"""
         logger.info('检查会议页面')
-        assert self.element_exists(self.home_page_elements.JOIN_MEETING), '未找到"加入会议"'
-        assert self.element_exists(self.home_page_elements.QUICK_MEETING), '未找到"快速会议"'
-        assert self.element_exists(self.home_page_elements.BOOK_MEETING), '未找到"预定会议"'
-        assert self.element_exists(self.home_page_elements.SHARE_SCREEN), '未找到"共享屏幕"'
+        assert self.wait_element_exists(self.home_page_elements.MEETING_TAB), '未找到"会议"'
+        assert self.wait_element_exists(self.home_page_elements.JOIN_MEETING), '未找到"加入会议"'
+        assert self.wait_element_exists(self.home_page_elements.QUICK_MEETING), '未找到"快速会议"'
+        assert self.wait_element_exists(self.home_page_elements.BOOK_MEETING), '未找到"预定会议"'
+        assert self.wait_element_exists(self.home_page_elements.SHARE_SCREEN), '未找到"共享屏幕"'
 
     def join_meeting(self, meeting_number=None):
         """加入会议"""
@@ -66,7 +67,7 @@ class Meeting(BasePage):
             
         self.click_element(self.home_page_elements.JOIN_BUTTON)
         self.wait_for_element(self.in_meeting_elements.END_MEETING, WaitTime.MEDIUM)
-        assert self.element_exists(self.in_meeting_elements.END_MEETING), '未找到"结束",加入会议失败'
+        assert self.wait_element_exists(self.in_meeting_elements.END_MEETING), '未找到"结束",加入会议失败'
         logger.info('加入会议成功')
         self.click_element(self.in_meeting_elements.TURN_ON_VIDEO)
 
@@ -82,7 +83,7 @@ class Meeting(BasePage):
     def is_on_home_page(self):
         """检查是否在首页"""
         logger.info('检查是否在首页')
-        if self.element_exists(self.home_page_elements.MEETING_TAB):
+        if self.wait_element_exists(self.home_page_elements.MEETING_TAB):
             logger.info('在首页')
             return True
         else:

@@ -33,4 +33,6 @@ IMAGE_PATHS = {
 IMAGE_FILES = {
     'book_meeting': 'book_meeting.jpg',
     'next_step': 'next_step.jpg'
-} 
+}
+
+MAX_RETRY = 3  # 可根据需要调整
