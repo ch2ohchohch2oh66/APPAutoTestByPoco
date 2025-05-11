@@ -8,7 +8,7 @@ import logging
 import threading
 from time import sleep
 
-from moduls.android.common.poco_common import *
+from moduls.android.common.poco_common import poco
 from configs.android.ui_elements import PopupElements
 from configs.android.other_configs import WaitTime
 
@@ -28,6 +28,13 @@ def handle_popups():
             if poco(**PopupElements.ALLOW).exists() and poco(**PopupElements.DENY).exists():
                 poco(**PopupElements.ALLOW).click()
                 logger.info('检测到一次性权限弹窗，已点击"允许"')
+                sleep(WaitTime.SHORT)
+                continue
+
+            # 处理"再想想"和"去开启"同时存在的情况，点击"再想想"
+            if poco(**PopupElements.THINK_AGAIN).exists() and poco(**PopupElements.GO_ENABLE).exists():
+                poco(**PopupElements.THINK_AGAIN).click()
+                logger.info('检测到"再想想"和"去开启"按钮，已点击"再想想"')
                 sleep(WaitTime.SHORT)
                 continue
 

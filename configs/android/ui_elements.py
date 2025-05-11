@@ -65,6 +65,7 @@ class PopupElements:
     CLOSE_VIDEO = {'text': '关闭视频'}
     NOTIFICATION = {'text': '开启消息通知'}
     THINK_AGAIN = {'text': '再想想'}
+    GO_ENABLE = {'text': '去开启'}
     NEXT_INSTALL = {'text': '下次安装'} 
     UPDATE_NOW = {'text': '立即更新'}
     CLOSE_UPDATE = {'nameMatches': '.*dj$'}
