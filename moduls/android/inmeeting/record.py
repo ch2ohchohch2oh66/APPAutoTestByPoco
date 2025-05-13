@@ -27,9 +27,9 @@ class Record(BasePage):
                 logger.info('云录制按钮不存在，点击"更多"按钮')
                 self.default_page.click_more_button()
             self.click_element(self.elements.CLOUD_RECORDING)
-            if self.element_exists(self.elements.START_RECORDING):
-                self.click_element(self.elements.START_RECORDING)
-            assert self.element_exists(self.elements.RECORDING_STATUS)
+            assert self.wait_element_exists(self.elements.START_RECORDING)
+            assert self.click_element(self.elements.START_RECORDING), '点击开始录制失败'
+            assert self.wait_element_exists(self.elements.RECORDING_STATUS)
             logger.info('开启录制成功')
             sleep(WaitTime.MEDIUM)
             return True
@@ -43,10 +43,10 @@ class Record(BasePage):
         try:
             if (self.element_exists(self.elements.RECORDING_STATUS) and 
                 not self.element_exists(self.elements.PAUSE_RECORDING)):
-                self.click_element(self.elements.RECORDING_STATUS)
+                assert self.click_element(self.elements.RECORDING_STATUS)
                 sleep(WaitTime.SHORT)
-                self.click_element(self.elements.PAUSE_RECORDING)
-                assert self.element_exists(self.elements.RECORDING_PAUSED)
+                assert self.click_element(self.elements.PAUSE_RECORDING)
+                assert self.wait_element_exists(self.elements.RECORDING_PAUSED)
                 logger.info('暂停录制成功')
                 sleep(WaitTime.MEDIUM)
                 return True
@@ -61,9 +61,9 @@ class Record(BasePage):
         try:
             if (self.element_exists(self.elements.RECORDING_PAUSED) and
                 not self.element_exists(self.elements.RESUME_RECORDING)):
-                self.click_element(self.elements.RECORDING_PAUSED)
+                assert self.click_element(self.elements.RECORDING_PAUSED)
                 sleep(WaitTime.SHORT)
-                self.click_element(self.elements.RESUME_RECORDING)
+                assert self.click_element(self.elements.RESUME_RECORDING)
                 assert self.element_exists(self.elements.RECORDING_STATUS)
                 logger.info('恢复录制成功')
                 sleep(WaitTime.MEDIUM)
@@ -78,18 +78,18 @@ class Record(BasePage):
         logger.info('结束录制')
         try:
             if self.element_exists(self.elements.RECORDING_STATUS):
-                self.click_element(self.elements.RECORDING_STATUS)
+                assert self.click_element(self.elements.RECORDING_STATUS)
             elif self.element_exists(self.elements.RECORDING_PAUSED):
-                self.click_element(self.elements.RECORDING_PAUSED)
+                assert self.click_element(self.elements.RECORDING_PAUSED)
             else:
                 logger.info('未找到录制状态元素')
                 return False
             sleep(WaitTime.SHORT)
 
             if self.element_exists(self.elements.STOP_RECORDING):
-                self.click_element(self.elements.STOP_RECORDING)
+                assert self.click_element(self.elements.STOP_RECORDING)
                 sleep(WaitTime.SHORT)
-                self.click_element(self.elements.STOP_RECORDING_CONFIRM)
+                assert self.click_element(self.elements.STOP_RECORDING_CONFIRM)
                 logger.info('结束录制成功')
                 sleep(WaitTime.SHORT)
                 return True
@@ -103,18 +103,18 @@ class Record(BasePage):
         logger.info('开始录制流程')
         
         # 点击更多按钮
-        self.default_page.click_more_button()
+        assert self.default_page.click_more_button()
             
         # 开始录制
-        self.start_record()
+        assert self.start_record()
             
         # 暂停录制
-        self.pause_record()
+        assert self.pause_record()
             
         # 恢复录制
-        self.restore_record()
+        assert self.restore_record()
             
         # 停止录制
-        self.stop_record()
+        assert self.stop_record()
             
         logger.info('录制流程完成')

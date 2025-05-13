@@ -66,7 +66,7 @@ class Meeting(BasePage):
         #     sleep(WaitTime.ULTRA_SHORT)
             
         self.click_element(self.home_page_elements.JOIN_BUTTON)
-        self.wait_for_element(self.in_meeting_elements.END_MEETING, WaitTime.MEDIUM)
+        # self.wait_for_element(self.in_meeting_elements.END_MEETING, WaitTime.MEDIUM)
         assert self.wait_element_exists(self.in_meeting_elements.END_MEETING), '未找到"结束",加入会议失败'
         logger.info('加入会议成功')
         self.click_element(self.in_meeting_elements.TURN_ON_VIDEO)
